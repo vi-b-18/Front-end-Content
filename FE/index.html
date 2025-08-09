@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechInsights - Your Gateway to Modern Technology</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#1e40af',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid #fbbf24;
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #fbbf24; }
+        }
+        .counter {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Dark mode toggle styles */
+        .dark-mode-toggle {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .dark-mode-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            transition: 0.4s;
+            border-radius: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background: white;
+            transition: 0.4s;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        input:checked + .slider {
+            background: linear-gradient(45deg, #1e293b, #334155);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+            background: #f1f5f9;
+        }
+
+        /* Sun and moon icons */
+        .slider .sun-icon, .slider .moon-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            transition: opacity 0.3s;
+        }
+
+        .slider .sun-icon {
+            left: 8px;
+            opacity: 1;
+        }
+
+        .slider .moon-icon {
+            right: 8px;
+            opacity: 0;
+            color: #f1f5f9;
+        }
+
+        input:checked + .slider .sun-icon {
+            opacity: 0;
+        }
+
+        input:checked + .slider .moon-icon {
+            opacity: 1;
+        }
+
+        /* Smooth transitions for all elements */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+<!-- Navigation -->
+<nav class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <h1 class="text-2xl font-bold text-primary dark:text-blue-400">TechInsights</h1>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-blue-400 transition duration-200">Home</a>
+                <a href="#articles" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-blue-400 transition duration-200">Articles</a>
+                <a href="#categories" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-blue-400 transition duration-200">Categories</a>
+                <a href="#about" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-blue-400 transition duration-200">About</a>
+                <a href="#contact" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-blue-400 transition duration-200">Contact</a>
+
+                <!-- Dark Mode Toggle -->
+                <div class="flex items-center">
+                    <label class="dark-mode-toggle">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider">
+                            <span class="sun-icon">☀️</span>
+                            <span class="moon-icon">🌙</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="md:hidden flex items-center space-x-4">
+                <!-- Mobile Dark Mode Toggle -->
+                <label class="dark-mode-toggle scale-75">
+                    <input type="checkbox" id="darkModeToggleMobile">
+                    <span class="slider">
+                        <span class="sun-icon">☀️</span>
+                        <span class="moon-icon">🌙</span>
+                    </span>
+                </label>
+                <button class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-blue-400 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" class="bg-gradient-to-br from-primary to-secondary dark:from-blue-800 dark:to-indigo-900 text-white py-20 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 fade-in">
+                Welcome to <span class="text-yellow-300 dark:text-yellow-400 typewriter">TechInsights</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto fade-in opacity-90" style="animation-delay: 0.5s;">
+                Discover the latest trends, tutorials, and insights in software development, AI, cloud computing, and emerging technologies.
+            </p>
+            <div class="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center fade-in" style="animation-delay: 1s;">
+                <a href="#articles" class="inline-block bg-white dark:bg-gray-800 text-primary dark:text-blue-400 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 dark:hover:bg-gray-700 hover:scale-105 transition duration-200 transform floating">
+                    Read Latest Articles
+                </a>
+                <a href="#newsletter" class="inline-block border-2 border-white dark:border-gray-300 text-white dark:text-gray-100 px-8 py-3 rounded-lg font-semibold hover:bg-white dark:hover:bg-gray-800 hover:text-primary dark:hover:text-blue-400 hover:scale-105 transition duration-200 transform">
+                    Subscribe to Newsletter
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Articles -->
+<section id="articles" class="py-16 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 fade-in">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">Featured Articles</h2>
+            <p class="text-xl text-gray-600 dark:text-gray-400">Latest insights from our tech experts</p>
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center scale-in">
+                    <div class="text-3xl font-bold text-primary dark:text-blue-400 counter" data-target="500">0</div>
+                    <div class="text-gray-600 dark:text-gray-400">Articles Published</div>
+                </div>
+                <div class="text-center scale-in" style="animation-delay: 0.2s;">
+                    <div class="text-3xl font-bold text-primary dark:text-blue-400 counter" data-target="50000">0</div>
+                    <div class="text-gray-600 dark:text-gray-400">Monthly Readers</div>
+                </div>
+                <div class="text-center scale-in" style="animation-delay: 0.4s;">
+                    <div class="text-3xl font-bold text-primary dark:text-blue-400 counter" data-target="1200">0</div>
+                    <div class="text-gray-600 dark:text-gray-400">Newsletter Subscribers</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Article 1 -->
+            <article class="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-700/30 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-700/50 hover:scale-105 transition duration-300 transform slide-in-left">
+                <div class="h-48 bg-gradient-to-br from-blue-400 to-purple-600 dark:from-blue-600 dark:to-purple-800"></div>
+                <div class="p-6">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-primary dark:bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium animate-pulse">AI/ML</span>
+                        <span class="text-gray-500 dark:text-gray-400 text-sm ml-4">Dec 7, 2024</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-gray-100 hover:text-primary dark:hover:text-blue-400 cursor-pointer transition duration-200">
+                        The Future of Large Language Models in Enterprise Applications
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        Exploring how LLMs are transforming business workflows and the key considerations for enterprise adoption.
+                    </p>
+                    <a href="#" class="text-primary dark:text-blue-400 font-medium hover:underline transition duration-200">Read more →</a>
+                </div>
+            </article>
+
+            <!-- Article 2 -->
+            <article class="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-700/30 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-700/50 hover:scale-105 transition duration-300 transform fade-in" style="animation-delay: 0.2s;">
+                <div class="h-48 bg-gradient-to-br from-green-400 to-blue-600 dark:from-green-600 dark:to-blue-800"></div>
+                <div class="p-6">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-green-600 dark:bg-green-700 text-white px-3 py-1 rounded-full text-sm font-medium animate-pulse">Cloud</span>
+                        <span class="text-gray-500 dark:text-gray-400 text-sm ml-4">Dec 5, 2024</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-gray-100 hover:text-primary dark:hover:text-blue-400 cursor-pointer transition duration-200">
+                        Kubernetes Best Practices: Scaling Applications in 2024
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        A comprehensive guide to container orchestration patterns and scaling strategies for modern applications.
+                    </p>
+                    <a href="#" class="text-primary dark:text-blue-400 font-medium hover:underline transition duration-200">Read more →</a>
+                </div>
+            </article>
+
+            <!-- Article 3 -->
+            <article class="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-700/30 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-700/50 hover:scale-105 transition duration-300 transform slide-in-right" style="animation-delay: 0.4s;">
+                <div class="h-48 bg-gradient-to-br from-purple-400 to-pink-600 dark:from-purple-600 dark:to-pink-800"></div>
+                <div class="p-6">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-purple-600 dark:bg-purple-700 text-white px-3 py-1 rounded-full text-sm font-medium animate-pulse">Web Dev</span>
+                        <span class="text-gray-500 dark:text-gray-400 text-sm ml-4">Dec 3, 2024</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-gray-100 hover:text-primary dark:hover:text-blue-400 cursor-pointer transition duration-200">
+                        React Server Components: Building Faster Web Applications
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                        Learn how React Server Components are revolutionizing web development and improving performance.
+                    </p>
+                    <a href="#" class="text-primary dark:text-blue-400 font-medium hover:underline transition duration-200">Read more →</a>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- Categories -->
+<section id="categories" class="py-16 bg-gray-100 dark:bg-gray-800 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 fade-in">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">Browse by Category</h2>
+            <p class="text-xl text-gray-600 dark:text-gray-400">Find articles that match your interests</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md dark:shadow-gray-600/30 hover:shadow-lg dark:hover:shadow-gray-600/50 hover:scale-105 transition duration-300 text-center scale-in category-card" data-category="web">
+                <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4 hover:animate-bounce transition-colors duration-300">
+                    <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Web Development</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">Frontend, Backend, Full-stack</p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md dark:shadow-gray-600/30 hover:shadow-lg dark:hover:shadow-gray-600/50 hover:scale-105 transition duration-300 text-center scale-in category-card" data-category="data" style="animation-delay: 0.1s;">
+                <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4 hover:animate-bounce transition-colors duration-300">
+                    <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Data Science</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">Analytics, ML, Visualization</p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md dark:shadow-gray-600/30 hover:shadow-lg dark:hover:shadow-gray-600/50 hover:scale-105 transition duration-300 text-center scale-in category-card" data-category="cloud" style="animation-delay: 0.2s;">
+                <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4 hover:animate-bounce transition-colors duration-300">
+                    <svg class="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Cloud Computing</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">AWS, Azure, DevOps</p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-md dark:shadow-gray-600/30 hover:shadow-lg dark:hover:shadow-gray-600/50 hover:scale-105 transition duration-300 text-center scale-in category-card" data-category="mobile" style="animation-delay: 0.3s;">
+                <div class="w-16 h-16 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center mx-auto mb-4 hover:animate-bounce transition-colors duration-300">
+                    <svg class="w-8 h-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Mobile Development</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">iOS, Android, Cross-platform</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Signup -->
+<section id="newsletter" class="py-16 bg-primary dark:bg-blue-900 text-white transition-colors duration-300">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Stay Updated</h2>
+        <p class="text-xl mb-8 opacity-90">Get the latest tech insights delivered to your inbox weekly</p>
+
+        <form class="max-w-md mx-auto newsletter-form" id="newsletterForm">
+            <div class="flex gap-4">
+                <input
+                        type="email"
+                        placeholder="Enter your email"
+                        class="flex-1 px-4 py-3 rounded-lg text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-300 dark:focus:ring-yellow-400 focus:scale-105 transition duration-200"
+                        required
+                        id="emailInput"
+                >
+                <button
+                        type="submit"
+                        class="bg-yellow-400 dark:bg-yellow-500 text-gray-900 dark:text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-yellow-300 dark:hover:bg-yellow-400 hover:scale-105 transition duration-200 transform pulse-btn"
+                        id="subscribeBtn"
+                >
+                    Subscribe
+                </button>
+            </div>
+            <div id="successMessage" class="hidden mt-4 p-3 bg-green-500 dark:bg-green-600 rounded-lg">
+                ✅ Thank you for subscribing! Welcome to TechInsights.
+            </div>
+        </form>
+
+        <p class="text-sm mt-4 opacity-80">
+            No spam, unsubscribe anytime. We respect your privacy.
+        </p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 dark:bg-gray-950 text-white transition-colors duration-300 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-2xl font-bold mb-4">TechInsights</h3>
+                <p class="text-gray-400 dark:text-gray-500">
+                    Your trusted source for the latest in technology, development, and innovation.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Categories</h4>
+                <ul class="space-y-2 text-gray-400 dark:text-gray-500">
+                    <li><a href="#" class="hover:text-white dark:hover:text-gray-300 transition duration-200">Web Development</a></li>
+                    <li><a href="#" class="hover:text-white dark:hover:text-gray-300 transition duration-200">Data Science</a></li>
+                    <li><a href="#" class="hover:text-white dark:hover:text-gray-300 transition duration-200">Cloud Computing</a></li>
+                    <li><a href="#" class="hover:text-white dark:hover:text-gray-300 transition duration-200">Mobile Dev</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Resources</h4>
+                <ul class="space-y-2 text-gray-400 dark:text-gray-500">
+                    <li><a href="#" class="hover:text-white dark:hover:text-gray-300 transition duration-200">Tutorials</a></li>
+                    <li><a href="#" class="hover:text-white dark:hover:text-gray-300 transition duration-200">Code Examples</a></li>
+                    <li><a href="#" class="hover:text-white dark:hover:text-gray-300 transition duration-200">Tools & Libraries</a></li>
+                    <li><a href="#" class="hover:text-white dark:hover:text-gray-300 transition duration-200">Career Advice</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-semibold mb-4">Connect</h4>
+                <ul class="space-y-2 text-gray-400 dark:text-gray-500">
+                    <li><a href="#" class="hover:text-white dark:hover:text-gray-300 transition duration-200">Twitter</a></li>
+                    <li><a href="#" class="hover:text-white dark:hover:text-gray-300 transition duration-200">GitHub</a></li>
+                    <li><a href="#" class="hover:text-white dark:hover:text-gray-300 transition duration-200">LinkedIn</a></li>
+                    <li><a href="#" class="hover:text-white dark:hover:text-gray-300 transition duration-200">RSS Feed</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 dark:border-gray-700 mt-8 pt-8 text-center text-gray-400 dark:text-gray-500 transition-colors duration-300">
+            <p>&copy; 2024 TechInsights. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Dark mode functionality
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const darkModeToggleMobile = document.getElementById('darkModeToggleMobile');
+    const htmlElement = document.documentElement;
+
+    // Check for saved dark mode preference or default to light mode
+    const savedDarkMode = localStorage.getItem('darkMode');
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    // Initialize dark mode
+    if (savedDarkMode === 'true' || (!savedDarkMode && prefersDarkMode)) {
+        htmlElement.classList.add('dark');
+        darkModeToggle.checked = true;
+        darkModeToggleMobile.checked = true;
+    }
+
+    // Toggle dark mode function
+    function toggleDarkMode() {
+        if (htmlElement.classList.contains('dark')) {
+            htmlElement.classList.remove('dark');
+            localStorage.setItem('darkMode', 'false');
+            darkModeToggle.checked = false;
+            darkModeToggleMobile.checked = false;
+        } else {
+            htmlElement.classList.add('dark');
+            localStorage.setItem('darkMode', 'true');
+            darkModeToggle.checked = true;
+            darkModeToggleMobile.checked = true;
+        }
+    }
+
+    // Add event listeners
+    darkModeToggle.addEventListener('change', toggleDarkMode);
+    darkModeToggleMobile.addEventListener('change', toggleDarkMode);
+
+    // Listen for system dark mode changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('darkMode')) {
+            if (e.matches) {
+                htmlElement.classList.add('dark');
+                darkModeToggle.checked = true;
+                darkModeToggleMobile.checked = true;
+            } else {
+                htmlElement.classList.remove('dark');
+                darkModeToggle.checked = false;
+                darkModeToggleMobile.checked = false;
+            }
+        }
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    // Observe all animated elements
+    document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Counter animation
+    function animateCounter(element, target, duration = 2000) {
+        let start = 0;
+        const increment = target / (duration / 16);
+        const timer = setInterval(() => {
+            start += increment;
+            if (start >= target) {
+                element.textContent = target.toLocaleString();
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(start).toLocaleString();
+            }
+        }, 16);
+    }
+
+    // Counter observer
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = parseInt(counter.dataset.target);
+                animateCounter(counter, target);
+                counterObserver.unobserve(counter);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.counter').forEach(counter => {
+        counterObserver.observe(counter);
+    });
+
+    // Newsletter form animation
+    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('subscribeBtn');
+        const input = document.getElementById('emailInput');
+        const successMessage = document.getElementById('successMessage');
+
+        // Animate button
+        btn.innerHTML = '⏳ Subscribing...';
+        btn.disabled = true;
+
+        // Simulate API call
+        setTimeout(() => {
+            btn.innerHTML = '✅ Subscribed!';
+            input.value = '';
+            successMessage.classList.remove('hidden');
+            successMessage.classList.add('animate-pulse');
+
+            setTimeout(() => {
+                btn.innerHTML = 'Subscribe';
+                btn.disabled = false;
+                successMessage.classList.add('hidden');
+                successMessage.classList.remove('animate-pulse');
+            }, 3000);
+        }, 1500);
+    });
+
+    // Category card hover effects
+    document.querySelectorAll('.category-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.05) rotate(2deg)';
+        });
+
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1) rotate(0deg)';
+        });
+    });
+
+    // Parallax effect for hero section
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallax = document.querySelector('#home');
+        const speed = scrolled * 0.5;
+        parallax.style.transform = `translateY(${speed}px)`;
+    });
+
+    // Add typing effect to hero text
+    window.addEventListener('load', () => {
+        const typewriterElement = document.querySelector('.typewriter');
+        if (typewriterElement) {
+            typewriterElement.style.animationPlayState = 'running';
+        }
+    });
+
+    // Mobile menu toggle (for future use)
+    const mobileMenuBtn = document.querySelector('.md\\:hidden button:last-child');
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function() {
+            // Add mobile menu animation logic here
+            console.log('Mobile menu clicked');
+        });
+    }
+
+    // Add random floating animation to articles
+    document.querySelectorAll('article').forEach((article, index) => {
+        const delay = Math.random() * 2000;
+        setTimeout(() => {
+            article.style.animationDelay = `${Math.random() * 2}s`;
+            article.classList.add('floating');
+        }, delay);
+    });
+</script>
+</body>
+</html>
