@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Networks - Vib-Tech</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#1e40af',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="neural-networks.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+<!-- Navigation -->
+<nav class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-2xl font-bold text-primary dark:text-blue-400">Vib-Tech</a>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html#home" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-blue-400 transition duration-200">Home</a>
+                <a href="index.html#articles" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-blue-400 transition duration-200">Articles</a>
+                <a href="index.html#categories" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-blue-400 transition duration-200">Categories</a>
+                <a href="index.html#about" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-blue-400 transition duration-200">About</a>
+                <a href="index.html#contact" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-blue-400 transition duration-200">Contact</a>
+
+                <!-- Dark Mode Toggle -->
+                <div class="flex items-center">
+                    <label class="dark-mode-toggle">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider">
+                            <span class="sun-icon">☀️</span>
+                            <span class="moon-icon">🌙</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="md:hidden flex items-center space-x-4">
+                <!-- Mobile Dark Mode Toggle -->
+                <label class="dark-mode-toggle scale-75">
+                    <input type="checkbox" id="darkModeToggleMobile">
+                    <span class="slider">
+                        <span class="sun-icon">☀️</span>
+                        <span class="moon-icon">🌙</span>
+                    </span>
+                </label>
+                <button class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-blue-400 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-br from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-900 text-white py-20 transition-colors duration-300 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 fade-in">Neural Networks</h1>
+            <p class="text-xl md:text-2xl max-w-3xl mx-auto fade-in opacity-90" style="animation-delay: 0.5s;">
+                Deep dive into the architectures and applications of neural networks.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<main class="py-16 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Sidebar -->
+            <aside class="lg:col-span-1 space-y-8">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Key Concepts</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-blue-400">Activation Functions</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-blue-400">Backpropagation</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-blue-400">Convolutional Neural Networks (CNNs)</a></li>
+                        <li><a href="#" class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-blue-400">Recurrent Neural Networks (RNNs)</a></li>
+                    </ul>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Popular Architectures</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-300 text-sm font-medium px-2.5 py-0.5 rounded-full">VGG</span>
+                        <span class="bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-300 text-sm font-medium px-2.5 py-0.5 rounded-full">ResNet</span>
+                        <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-300 text-sm font-medium px-2.5 py-0.5 rounded-full">LSTM</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="lg:col-span-2 space-y-8">
+                <article class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3">Introduction to Neural Networks</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Learn the fundamentals of neural networks, the building blocks of deep learning.
+                        </p>
+                        <a href="#" class="text-primary dark:text-blue-400 font-medium hover:underline">Read more →</a>
+                    </div>
+                </article>
+                <article class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3">Understanding Convolutional Neural Networks</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Explore how CNNs revolutionized computer vision and image processing tasks.
+                        </p>
+                        <a href="#" class="text-primary dark:text-blue-400 font-medium hover:underline">Read more →</a>
+                    </div>
+                </article>
+                <article class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3">Recurrent Neural Networks and Sequential Data</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Discover how RNNs handle sequential data and their applications in NLP.
+                        </p>
+                        <a href="#" class="text-primary dark:text-blue-400 font-medium hover:underline">Read more →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="bg-gray-900 dark:bg-gray-950 text-white transition-colors duration-300 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center text-gray-400 dark:text-gray-500">
+            <p>&copy; 2025 Vib-Tech. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="index.js"></script>
+<script src="neural-networks.js"></script>
+</body>
+</html>
